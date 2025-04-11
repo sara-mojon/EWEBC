@@ -31,9 +31,10 @@ for filename in os.listdir(directory):
                 articulo = articulo.strip()
                 if articulo:  # Evitar vacíos
                     embedding = get_embedding(articulo)
+                    print(f"Shape del embedding del artículo {article_count + 1}: {embedding.shape}")  # Añadimos un print para ver la longitud del embedding
                     embeddings.append(embedding)
                     article_count += 1
-                    print(f"Artículo {article_count} procesado.")  # Imprime cada vez que se genera un embedding
+                    print(f"Artículo {article_count} procesado.")
 
 # Guardar los embeddings en un archivo .npy
 np.save('embeddings.npy', np.array(embeddings))

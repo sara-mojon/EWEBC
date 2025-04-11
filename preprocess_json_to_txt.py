@@ -1,44 +1,40 @@
 import json
 import os
 
-# Ruta al archivo JSON específico
-input_file = 'corpora/cf/json/cf75.json'  # Ruta a tu archivo JSON
-output_dir = 'txt/cf'  # Directorio donde se guardará el archivo txt
+# Directorio de entrada con los JSON
+input_dir = 'corpora/cf/json'
+output_dir = 'txt/cf/'
+output_file = os.path.join(output_dir, 'cfs.txt')  # Archivo combinado de salida
 
 # Asegúrate de que el directorio de salida exista
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
-
-# Nombre del archivo de salida
-output_file = os.path.join(output_dir, 'cf75.txt')
+os.makedirs(output_dir, exist_ok=True)
 
 # Si el archivo ya existe, lo eliminamos para no duplicar datos
 if os.path.exists(output_file):
     os.remove(output_file)
 
-# Función para procesar el archivo JSON
-def process_json_file(json_file, output_txt):
-    # Cargar el archivo JSON
-    with open(json_file, 'r', encoding='utf-8') as f:
-        papers = json.load(f)
+# Función para procesar todos los JSON válidos en un directorio
+def process_all_jsons(input_dir, output_txt):
+    for filename in sorted(os.listdir(input_dir)):
+        if filename.endswith('.json') and filename.startswith('cf'):
+            filepath = os.path.join(input_dir, filename)
+            with open(filepath, 'r', encoding='utf-8') as f:
+                papers = json.load(f)
 
-    # Recorrer cada artículo
-    for paper in papers:
-        title = paper.get('title', 'No title available')
-        authors = ', '.join(paper.get('authors', ['No authors available']))
-        abstract = paper.get('abstract/extract', 'No abstract available')
+            for paper in papers:
+                title = paper.get('title', 'No title available')
+                abstract = paper.get('abstract/extract', 'No abstract available')
 
-        # Crear un texto con la información estructurada
-        article_text = f"Title: {title}\n"
-        article_text += f"Authors: {authors}\n"
-        article_text += f"Abstract: {abstract}\n"
-        article_text += "-" * 80 + "\n\n"  # Separador visual entre artículos
+                # Estructura del artículo
+                article_text = f"Title: {title}\n"
+                article_text += f"Abstract: {abstract}\n"
+                article_text += "-" * 80 + "\n\n"
 
-        # Guardar la información en el archivo (modo append)
-        with open(output_txt, 'a', encoding='utf-8') as f_out:
-            f_out.write(article_text)
+                # Guardar en el archivo
+                with open(output_txt, 'a', encoding='utf-8') as f_out:
+                    f_out.write(article_text)
 
-# Procesar el archivo JSON
-process_json_file(input_file, output_file)
+    print(f"✅ Preprocesamiento completo. Artículos combinados en: {output_txt}")
 
-print("Preprocesamiento completo. El archivo .txt ha sido generado.")
+# Ejecutar el procesamiento
+process_all_jsons(input_dir, output_file)
