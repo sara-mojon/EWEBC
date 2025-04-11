@@ -1,69 +1,55 @@
 import json
 import os
 
-# Directorio de entrada con los JSON
+# Directorios
 input_dir = 'corpora/cf/json'
 output_dir = 'txt/'
-output_file_cfs = os.path.join(output_dir, 'cfs.txt')  # Archivo combinado de salida
-output_file_queries = os.path.join(output_dir, 'queries.txt')  # Archivo de salida de queries
-
-# Asegúrate de que el directorio de salida exista
 os.makedirs(output_dir, exist_ok=True)
 
-# Si el archivo de cfs ya existe, lo eliminamos para no duplicar datos
-if os.path.exists(output_file_cfs):
-    os.remove(output_file_cfs)
+# Diccionario de archivos de salida
+output_files = {
+    'cf': os.path.join(output_dir, 'cfs.txt'),
+    'queries': os.path.join(output_dir, 'queries.txt')
+}
 
-# Si el archivo de queries ya existe, lo eliminamos para no duplicar datos
-if os.path.exists(output_file_queries):
-    os.remove(output_file_queries)
+# Eliminar archivos existentes para evitar duplicados
+for path in output_files.values():
+    if os.path.exists(path):
+        os.remove(path)
 
-# Función para procesar todos los JSON de cfs válidos en un directorio
-def process_all_jsons_cfs(input_dir, output_txt):
+# Funciones de formateo específicas por tipo
+def format_cf_entry(paper):
+    title = paper.get('title', 'No title available')
+    abstract = paper.get('abstract/extract', 'No abstract available')
+    return f"Title: {title}\nAbstract: {abstract}\n" + "-" * 80 + "\n\n"
+
+def format_query_entry(paper):
+    query = paper.get('queryText', 'No queryText available')
+    return f"QueryText: {query}\n" + "-" * 80 + "\n\n"
+
+# Mapeo de tipo a su función formateadora
+formatter_map = {
+    'cf': format_cf_entry,
+    'queries': format_query_entry
+}
+
+# Función generalizada
+def preprocess_json_files(prefix, formatter, output_path):
+    count = 0
     for filename in sorted(os.listdir(input_dir)):
-        if filename.endswith('.json') and filename.startswith('cf'):
+        if filename.endswith('.json') and filename.startswith(prefix):
             filepath = os.path.join(input_dir, filename)
             with open(filepath, 'r', encoding='utf-8') as f:
-                papers = json.load(f)
+                data = json.load(f)
 
-            for paper in papers:
-                title = paper.get('title', 'No title available')
-                abstract = paper.get('abstract/extract', 'No abstract available')
+            with open(output_path, 'a', encoding='utf-8') as out_file:
+                for entry in data:
+                    formatted = formatter(entry)
+                    out_file.write(formatted)
+                    count += 1
 
-                # Estructura del artículo
-                article_text = f"Title: {title}\n"
-                article_text += f"Abstract: {abstract}\n"
-                article_text += "-" * 80 + "\n\n"
+    print(f"✅ {count} entradas procesadas y escritas en: {output_path}")
 
-                # Guardar en el archivo
-                with open(output_txt, 'a', encoding='utf-8') as f_out:
-                    f_out.write(article_text)
-
-    print(f"✅ Preprocesamiento completo. Artículos combinados en: {output_txt}")
-
-# Función para procesar todos los JSON de queries válidos en un directorio
-def process_all_jsons_queries(input_dir, output_txt):
-    for filename in sorted(os.listdir(input_dir)):
-        if filename.endswith('.json') and filename.startswith('queries'):
-            filepath = os.path.join(input_dir, filename)
-            with open(filepath, 'r', encoding='utf-8') as f:
-                papers = json.load(f)
-
-            for paper in papers:
-                queryText = paper.get('queryText', 'No queryText available')
-
-                # Estructura del artículo
-                query_text = f"QueryText: {queryText}\n"
-                query_text += "-" * 80 + "\n\n"
-
-                # Guardar en el archivo
-                with open(output_txt, 'a', encoding='utf-8') as f_out:
-                    f_out.write(query_text)
-
-    print(f"✅ Preprocesamiento completo. Queries combinadas en: {output_txt}")
-
-# Ejecutar el procesamiento de cfs
-process_all_jsons_cfs(input_dir, output_file_cfs)
-
-# Ejecutar el procesamiento de queries
-process_all_jsons_queries(input_dir, output_file_queries)
+# Ejecutar para cada tipo
+preprocess_json_files('cf', formatter_map['cf'], output_files['cf'])
+preprocess_json_files('queries', formatter_map['queries'], output_files['queries'])
