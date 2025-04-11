@@ -1,0 +1,402 @@
+[
+  {
+    "queryID": 1,
+    "queryText": "What are the effects of calcium on the physical properties of mucus from CF patients? "
+  },
+  {
+    "queryID": 2,
+    "queryText": "Can one distinguish between the effects of mucus hypersecretion and infection on the submucosal glands of the respiratory tract in CF?"
+  },
+  {
+    "queryID": 3,
+    "queryText": "How are salivary glycoproteins from CF patients different from those of normal subjects?"
+  },
+  {
+    "queryID": 4,
+    "queryText": "What is the lipid composition of CF respiratory secretions?"
+  },
+  {
+    "queryID": 5,
+    "queryText": "Is CF mucus abnormal?"
+  },
+  {
+    "queryID": 6,
+    "queryText": "What is the effect of water or other therapeutic agents on the physical properties (viscosity, elasticity) of sputum or bronchial secretions from CF patients?"
+  },
+  {
+    "queryID": 7,
+    "queryText": "Are mucus glycoproteins degraded differently in CF patients as compared to those from normal subjects?"
+  },
+  {
+    "queryID": 8,
+    "queryText": "What histochemical differences have been described between normal and CF respiratory epithelia?"
+  },
+  {
+    "queryID": 9,
+    "queryText": "What is the association between liver disease (cirrhosis) and vitamin A metabolism in CF?"
+  },
+  {
+    "queryID": 10,
+    "queryText": "What is the role of Vitamin E in the therapy of patients with CF?"
+  },
+  {
+    "queryID": 11,
+    "queryText": "What is the difference between meconium ileus and meconium plug syndrome?"
+  },
+  {
+    "queryID": 12,
+    "queryText": "What abnormalities of amino acid transport have been described in the small bowel of CF patients?"
+  },
+  {
+    "queryID": 13,
+    "queryText": "What are the clinical or biochemical features of pancreatitis in CF patients?"
+  },
+  {
+    "queryID": 14,
+    "queryText": "What non-invasive tests can be performed for the evaluation of exocrine pancreatic function in patients with CF?"
+  },
+  {
+    "queryID": 15,
+    "queryText": "What are the hepatic complications or manifestations of CF?"
+  },
+  {
+    "queryID": 16,
+    "queryText": "What are the gastrointestinal complications of CF after the neonatal period (exclude liver disease and meconium ileus)?"
+  },
+  {
+    "queryID": 17,
+    "queryText": "What is the most effective regimen for the use of pancreatic enzyme supplements in the treatment of CF patients?"
+  },
+  {
+    "queryID": 18,
+    "queryText": "Is dietary supplementation with bile salts of therapeutic benefit to CF patients?"
+  },
+  {
+    "queryID": 19,
+    "queryText": "What complications of pancreatic enzyme therapy have been reported in CF patients?"
+  },
+  {
+    "queryID": 20,
+    "queryText": "What is the effect of treatment of CF patients with essential fatty acid supplements?"
+  },
+  {
+    "queryID": 21,
+    "queryText": "Does pancreatic insufficiency in CF patients affect their ability to absorb or metabolize iron?"
+  },
+  {
+    "queryID": 22,
+    "queryText": "What is the frequency of CF in non-Caucasian populations?"
+  },
+  {
+    "queryID": 23,
+    "queryText": "What congenital or hereditary diseases or conditions have been found in association with CF?"
+  },
+  {
+    "queryID": 24,
+    "queryText": "What are the characteristics of patients in whom CF is incompletely manifested?"
+  },
+  {
+    "queryID": 25,
+    "queryText": "What evidence is there that the genetic basis for CF involves more than one gene?"
+  },
+  {
+    "queryID": 26,
+    "queryText": "What is the heterozygote advantage in CF?"
+  },
+  {
+    "queryID": 27,
+    "queryText": "What is the concordance of clinical or biochemical manifestations of CF in sibling pairs (both of whom have CF)?"
+  },
+  {
+    "queryID": 28,
+    "queryText": "What is the incidence of male fertility in CF?"
+  },
+  {
+    "queryID": 29,
+    "queryText": "What is the pathology of the reproductive system (male or female) in CF?"
+  },
+  {
+    "queryID": 30,
+    "queryText": "What are the results of genetic counseling of families of children with CF?"
+  },
+  {
+    "queryID": 31,
+    "queryText": "What are the major psychological or social effects of CF on patients and their families?"
+  },
+  {
+    "queryID": 32,
+    "queryText": "What factors influence compliance with prescribed therapy in CF patients?"
+  },
+  {
+    "queryID": 33,
+    "queryText": "What conditions or factors lead to erroneous sweat tests?"
+  },
+  {
+    "queryID": 34,
+    "queryText": "What alternative techniques other than the classical Gibson-Cooke quantitative pilocarpine iontophoresis test (with titrimetric analysis of chloride) are available for sweat testing; what are their relative advantages and disadvantages?"
+  },
+  {
+    "queryID": 35,
+    "queryText": "Has any CF patient been found to have consistently normal sweat tests? "
+  },
+  {
+    "queryID": 36,
+    "queryText": "What is the concentration of potassium in sweat from CF patients?"
+  },
+  {
+    "queryID": 37,
+    "queryText": "What techniques are available for screening of newborn infants for CF, and what factors contribute to erroneous results of these tests?"
+  },
+  {
+    "queryID": 38,
+    "queryText": "Can CF be diagnosed prenatally?"
+  },
+  {
+    "queryID": 39,
+    "queryText": "How may heterozygotes for CF be identified?"
+  },
+  {
+    "queryID": 40,
+    "queryText": "Other than the sweat test, what techniques may be useful (beyond the neonatal period) for the diagnosis of CF?"
+  },
+  {
+    "queryID": 41,
+    "queryText": "Is Vitamin D metabolism normal in CF patients?"
+  },
+  {
+    "queryID": 42,
+    "queryText": "What abnormalities of insulin secretion or insulin metabolism occur in CF patients?"
+  },
+  {
+    "queryID": 43,
+    "queryText": "Is salt (sodium and/or chloride) transport/permeability abnormal in CF?"
+  },
+  {
+    "queryID": 44,
+    "queryText": "What structural or enzymatic differences are there between fibroblasts from CF patients and non-CF patients?"
+  },
+  {
+    "queryID": 45,
+    "queryText": "What abnormalities of prostaglandin metabolism have been described in CF patients?"
+  },
+  {
+    "queryID": 46,
+    "queryText": "What are the properties and activity of galactosyltransferase enzymes from CF patients?"
+  },
+  {
+    "queryID": 47,
+    "queryText": "What differences between normal subjects and CF patients have been described in the function or metabolism of hormones?"
+  },
+  {
+    "queryID": 48,
+    "queryText": "Do fibroblasts from CF patients grow at a normal rate?"
+  },
+  {
+    "queryID": 49,
+    "queryText": "Is RNA methylation or polyamine metabolism normal in CF patients?"
+  },
+  {
+    "queryID": 50,
+    "queryText": "What defects in the synthesis or metabolism of cyclic nucleotides have been described in CF patients?"
+  },
+  {
+    "queryID": 51,
+    "queryText": "What circulating or secreted \"factors\" have been described in CF patients? (\"Factors\" are unidentified biologically active molecules thought to play some pathogenetic role in cystic fibrosis)."
+  },
+  {
+    "queryID": 52,
+    "queryText": "What is known about prolactin in CF patients?"
+  },
+  {
+    "queryID": 53,
+    "queryText": "Does secretory IgA protect CF patients against bacterial colonization or infection?"
+  },
+  {
+    "queryID": 54,
+    "queryText": "What is the relationship of allergy or hypersensitivity to lung disease in CF patients?"
+  },
+  {
+    "queryID": 55,
+    "queryText": "What are the interactions between proteases (endogenous or bacterial origin) and antiproteases in the lungs of CF patients?"
+  },
+  {
+    "queryID": 56,
+    "queryText": "What is the relationship between nutrition and pulmonary host defenses against bacterial infection in CF patients?"
+  },
+  {
+    "queryID": 57,
+    "queryText": "What is the pathophysiologic role of circulating antibodies to Pseudomonas aeruginosa in CF patients?"
+  },
+  {
+    "queryID": 58,
+    "queryText": "What is the immunologic response to pulmonary infection in CF patients?"
+  },
+  {
+    "queryID": 59,
+    "queryText": "What immunologic abnormalities have been found in CF patients?"
+  },
+  {
+    "queryID": 60,
+    "queryText": "What are the effects of CF on the pulmonary circulation?"
+  },
+  {
+    "queryID": 61,
+    "queryText": "Is there a defect in mucociliary transport (clearance) in the respiratory tract of CF patients?"
+  },
+  {
+    "queryID": 62,
+    "queryText": "What are the clinical features of lung disease in CF patients?"
+  },
+  {
+    "queryID": 63,
+    "queryText": "What are the biochemical or microscopic characteristics of airway inflammation in CF patients?"
+  },
+  {
+    "queryID": 64,
+    "queryText": "How does lung function change with time in CF patients? (time periods greater than a day)"
+  },
+  {
+    "queryID": 65,
+    "queryText": "What are the abnormalities of pulmonary function in CF patients?"
+  },
+  {
+    "queryID": 66,
+    "queryText": "What are the pathologic features of lung disease in CF patients?"
+  },
+  {
+    "queryID": 67,
+    "queryText": "What is the prognosis for patients who have had an episode of respiratory failure?"
+  },
+  {
+    "queryID": 68,
+    "queryText": "What are the effects of bronchodilators in CF patients?"
+  },
+  {
+    "queryID": 69,
+    "queryText": "What is the best way to treat pneumothorax in CF patients?"
+  },
+  {
+    "queryID": 70,
+    "queryText": "What is the treatment for and prognosis of hemoptysis in CF patients?"
+  },
+  {
+    "queryID": 71,
+    "queryText": "What is the prognosis for infants with wheezing and cystic fibrosis?"
+  },
+  {
+    "queryID": 72,
+    "queryText": "What is the best treatment for nasal polyps in CF patients?"
+  },
+  {
+    "queryID": 73,
+    "queryText": "How effective is bronchial lavage in CF patients?"
+  },
+  {
+    "queryID": 74,
+    "queryText": "What are the results of mechanical ventilation in CF patients with respiratory failure?"
+  },
+  {
+    "queryID": 75,
+    "queryText": "What is the best treatment for pulmonary hypertension and/or cor pulmonale in CF patients?"
+  },
+  {
+    "queryID": 76,
+    "queryText": "What are the effects of exercise training programs on lung function in CF patients?"
+  },
+  {
+    "queryID": 77,
+    "queryText": "What techniques are effective in promoting clearance of mucus from the lungs of CF patients?"
+  },
+  {
+    "queryID": 78,
+    "queryText": "What special considerations are there for treatment of CF patients with antibiotics (ie, are the pharmacodynamics of antibiotics different in CF patients, or are there other special problems peculiar to CF)?"
+  },
+  {
+    "queryID": 79,
+    "queryText": "What is the role of orally administered antibiotics in the treatment of CF patients?"
+  },
+  {
+    "queryID": 80,
+    "queryText": "What is the evidence that combination therapy with aminoglycosides and semisynthetic penicillins is more effective than therapy with either alone?"
+  },
+  {
+    "queryID": 81,
+    "queryText": "How effective are inhalations of mucolytic agents in the treatment of CF patients?"
+  },
+  {
+    "queryID": 82,
+    "queryText": "What is the role of aerosols in the treatment of lung disease in CF patients?"
+  },
+  {
+    "queryID": 83,
+    "queryText": "What is the role of bacterial phagocytosis (by alveolar macrophages or polymorphonuclear leukocytes) in lung disease in CF patients?"
+  },
+  {
+    "queryID": 84,
+    "queryText": "What is the relationship between Haemophilus influenzae and Pseudomonas aeruginosa in CF patients?"
+  },
+  {
+    "queryID": 85,
+    "queryText": "Do CF patients ever develop infection in organs other than the lung? If so, in what organs?"
+  },
+  {
+    "queryID": 86,
+    "queryText": "What is the role of bacteria other than Pseudomonas aeruginosa, Staphylococcus aureus, or Haemophilus influenzae in the pathogenesis of lung disease in CF patients?"
+  },
+  {
+    "queryID": 87,
+    "queryText": "What is the role of fungi in the pathogenesis of lung disease in CF patients?"
+  },
+  {
+    "queryID": 88,
+    "queryText": "What is the role of viral infection in the lung disease of CF patients?"
+  },
+  {
+    "queryID": 89,
+    "queryText": "What is the epidemiology of Pseudomonas aeruginosa in CF patients? Specifically, do CF patients spread Pseudomonas aeruginosa to other patients or to other individuals (family)?"
+  },
+  {
+    "queryID": 90,
+    "queryText": "What factors are responsible for the appearance of mucoid strains of Pseudomonas aeruginosa in CF patients?"
+  },
+  {
+    "queryID": 91,
+    "queryText": "What are the unusual manifestations of CF (other than lung disease or exocrine pancreatic insufficiency)?"
+  },
+  {
+    "queryID": 92,
+    "queryText": "What is the prognosis for survival of patients with CF?"
+  },
+  {
+    "queryID": 93,
+    "queryText": "Do CF patients have normal intelligence?"
+  },
+  {
+    "queryID": 94,
+    "queryText": "What animal models are available which are relevant to CF?"
+  },
+  {
+    "queryID": 95,
+    "queryText": "What abnormalities of skeletal muscle function or structure have been found in CF patients?"
+  },
+  {
+    "queryID": 96,
+    "queryText": "Is there an increased incidence of dental problems (eg, caries or periodontal disease) in CF patients?"
+  },
+  {
+    "queryID": 97,
+    "queryText": "Is oxygen transport by red blood cells abnormal in CF patients?"
+  },
+  {
+    "queryID": 98,
+    "queryText": "What are the effects of CF on the development and/or function of the brain and central nervous system?"
+  },
+  {
+    "queryID": 99,
+    "queryText": "Are there abnormalities of taste in CF patients?"
+  },
+  {
+    "queryID": 100,
+    "queryText": "What is the incidence of and treatment for hypertrophic osteoarthropathy in CF patients?"
+  }
+]
