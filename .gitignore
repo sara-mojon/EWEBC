@@ -1,0 +1,5 @@
+embeddingsCfs.npy
+embeddingsQueries.npy
+resultsCfs.json
+resultsCfs.txt
+faiss_index.bin
