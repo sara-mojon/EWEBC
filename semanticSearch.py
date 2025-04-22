@@ -3,8 +3,8 @@ import json
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Cargar los embeddings
-embeddings_cfs = np.load('embeddingsCfs.npy')        # Artículos
-embeddings_queries = np.load('embeddingsQueries.npy')  # Queries
+embeddings_cfs = np.load('embeddings/embeddingsCfs.npy')        # Artículos
+embeddings_queries = np.load('embeddings/embeddingsQueries.npy')  # Queries
 
 # Leer los textos originales para mostrar los resultados
 with open("txt/cfs.txt", "r", encoding="utf-8") as f:
