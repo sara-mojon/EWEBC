@@ -1,3 +1,6 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import json
 from sentence_transformers import SentenceTransformer
 import chromadb
@@ -58,7 +61,7 @@ collection.add(
 # --------------------------------------------
 json_results = []
 
-with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
+with open("results/chromadb_pubmedbert_base.txt", "w", encoding="utf-8") as result_file:
     for i, (query_emb, query_text) in enumerate(zip(embeddings_queries, queries), 1):
         result_file.write(f"\n🔍 Query {i}:\n")
         result_file.write(f"{query_text}\n")
@@ -97,7 +100,7 @@ with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
         })
 
 # Guardar archivo JSON
-with open("resultsCfs.json", "w", encoding="utf-8") as json_file:
+with open("results/chromadb_pubmedbert_base.json", "w", encoding="utf-8") as json_file:
     json.dump(json_results, json_file, indent=2, ensure_ascii=False)
 
 print("Resultados guardados en resultsCfs.txt y resultsCfs.json.")
@@ -105,7 +108,7 @@ print("Resultados guardados en resultsCfs.txt y resultsCfs.json.")
 # --------------------------------------------
 # Evaluación de métricas semánticas
 # --------------------------------------------
-ref_docs, semantic_docs = load_data_semantic()
+ref_docs, semantic_docs = load_data_semantic("results/chromadb_pubmedbert_base.json")
 
 map_vals, prec_vals = [], []
 p5, p10, rprec_total, f1_total, fbeta_total = 0, 0, 0, 0, 0
