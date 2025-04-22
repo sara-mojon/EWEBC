@@ -2,8 +2,7 @@
 Participants: Sara Mojon, Adrian Bernardo, Endry Hernández, David Sueiro
 
 
-This project implements a semantic search system using FAISS and pre-trained BERT models (`bioclinicalBERT` and `PubMedBERT`). It processes articles and queries, generates embeddings, and evaluates the search results using various metrics.
-
+This project implements a semantic search system using FAISS, ChromaDB, and pre-trained BERT models (`bioclinicalBERT` and `PubMedBERT`). It processes articles and queries, generates embeddings, and evaluates the search results using various metrics.
 ## Features
 
 - **Semantic Search**: Uses FAISS for efficient similarity search.
@@ -45,12 +44,16 @@ pip install -r requirements.txt
 2. **Run the Script**:
    - For `bioclinicalBERT`:
      ```bash
-     python faiss_with_bioclinicalBERT.py
+     python faiss/faiss_with_bioclinicalBERT.py
      ```
    - For `PubMedBERT`:
      ```bash
-     python faiss_with_pubmedbert-base.py
+     python faiss/faiss_with_pubmedbert-base.py
      ```
+    - For `ChromaDB`:
+      ```bash
+        python chromadb/chromadb_with_pubmedber-base.py
+        ```
 
 3. **View Results**:
    - Check `resultsCfs.txt` for top 10 similar articles per query.
@@ -58,13 +61,15 @@ pip install -r requirements.txt
 
 ## Metrics
 
-The following metrics are calculated to evaluate the search results:
+## Metrics
 
-- **Precision** and **Recall**
-- **F1-score** and **F2-score (F-beta)**
-- **Mean Average Precision (MAP)**
-- **Precision at N (P@5, P@10)**
-- **R-Precision**
+# The following metrics are calculated to evaluate the search results:
+# - **Precision** and **Recall**: Measure the relevance of retrieved results.
+# - **F1-score** and **F2-score (F-beta)**: Harmonic mean of precision and recall.
+# - **Mean Average Precision (MAP)**: Average precision across all queries.
+# - **Precision at N (P@5, P@10)**: Precision for the top N results.
+# - **R-Precision**: Precision at the R-th position, where R is the number of relevant documents.
+
 
 
 ## Acknowledgments
