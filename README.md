@@ -78,4 +78,5 @@ pip install -r requirements.txt
 - [SentenceTransformers](https://www.sbert.net/)
 - [PubMedBERT](https://huggingface.co/NeuML/pubmedbert-base-embeddings)
 - [BioClinicalBERT](https://huggingface.co/emilyalsentzer/Bio_ClinicalBERT)
+- [BERTBaseUncased](https://huggingface.co/google-bert/bert-base-uncased)
 ```
