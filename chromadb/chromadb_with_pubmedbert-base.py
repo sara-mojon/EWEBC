@@ -1,11 +1,11 @@
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import json
-import numpy as np
-from tqdm import tqdm
 from sentence_transformers import SentenceTransformer
 import chromadb
 from chromadb.config import Settings
-from metrics import (
+from metrics.metrics import (
     load_data_semantic, precision_recall, map_vec, p_at_n, MAP,
     rprec, avg_prec_rec, f_beta, f1
 )
@@ -38,8 +38,8 @@ queries = cargar_queries("txt/queries.txt")
 # Generar embeddings
 # --------------------------------------------
 print("Generando embeddings...")
-embeddings_cfs = model.encode(articulos, show_progress_bar=True, convert_to_numpy=True, normalize_embeddings=True)
-embeddings_queries = model.encode(queries, show_progress_bar=True, convert_to_numpy=True, normalize_embeddings=True)
+embeddings_cfs = model.encode(articulos, show_progress_bar=True, convert_to_numpy=True, normalize_embeddings=False)
+embeddings_queries = model.encode(queries, show_progress_bar=True, convert_to_numpy=True, normalize_embeddings=False)
 
 # --------------------------------------------
 # Inicializar ChromaDB
@@ -48,7 +48,7 @@ print("Inicializando base de datos vectorial (Chroma)...")
 chroma_client = chromadb.Client(Settings(anonymized_telemetry=False))
 #chroma_client.reset()  # Limpiar colección anterior si existía
 
-collection = chroma_client.create_collection(name="cfs_collection")
+collection = chroma_client.create_collection(name="cfs_collection", metadata={"hnsw:space": "cosine"})
 collection.add(
     documents=articulos,
     ids=[str(i + 1) for i in range(len(articulos))],
@@ -61,7 +61,7 @@ collection.add(
 # --------------------------------------------
 json_results = []
 
-with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
+with open("results/chromadb_pubmedbert_base.txt", "w", encoding="utf-8") as result_file:
     for i, (query_emb, query_text) in enumerate(zip(embeddings_queries, queries), 1):
         result_file.write(f"\n🔍 Query {i}:\n")
         result_file.write(f"{query_text}\n")
@@ -78,9 +78,10 @@ with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
         scores = results["distances"][0]
         original_ids = [meta["original_id"] for meta in metas]
 
-        for rank, (doc_id, score) in enumerate(zip(original_ids[:10], scores[:10]), 1):
+        for rank, (doc_id, distance) in enumerate(zip(original_ids[:10], scores[:10]), 1):
+            similarity = 1 - distance  # Convertimos la distancia coseno a similitud
             idx = doc_id
-            result_file.write(f"{rank}. Índice: {idx}, Similitud: {score:.4f}\n")
+            result_file.write(f"{rank}. Índice: {idx}, Similitud: {similarity:.4f}\n")
             result_file.write(f"{articulos[idx - 1]}\n")
             result_file.write("-" * 80 + "\n")
 
@@ -88,9 +89,9 @@ with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
         relevant_docs_json = [
             {
                 "relevantDoc": int(doc_id),
-                "relevance": f"{score:.4f}"
+                "relevance": f"{1 - distance:.4f}"
             }
-            for doc_id, score in zip(original_ids, scores) if score >= 1.9
+            for doc_id, distance in zip(original_ids, scores) if (1 - distance) >= 0.5
         ]
 
         json_results.append({
@@ -99,7 +100,7 @@ with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
         })
 
 # Guardar archivo JSON
-with open("resultsCfs.json", "w", encoding="utf-8") as json_file:
+with open("results/chromadb_pubmedbert_base.json", "w", encoding="utf-8") as json_file:
     json.dump(json_results, json_file, indent=2, ensure_ascii=False)
 
 print("Resultados guardados en resultsCfs.txt y resultsCfs.json.")
@@ -107,7 +108,7 @@ print("Resultados guardados en resultsCfs.txt y resultsCfs.json.")
 # --------------------------------------------
 # Evaluación de métricas semánticas
 # --------------------------------------------
-ref_docs, semantic_docs = load_data_semantic()
+ref_docs, semantic_docs = load_data_semantic("results/chromadb_pubmedbert_base.json")
 
 map_vals, prec_vals = [], []
 p5, p10, rprec_total, f1_total, fbeta_total = 0, 0, 0, 0, 0

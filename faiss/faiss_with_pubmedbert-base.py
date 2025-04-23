@@ -1,11 +1,10 @@
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 import json
 import faiss
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
-from metrics import load_data_semantic, precision_recall, norm_prec, map_vec, average_curve, p_at_n, MAP, rprec, avg_prec_rec, f_beta, f1
-from tqdm import tqdm
+from metrics.metrics import load_data_semantic, precision_recall, map_vec, p_at_n, MAP, rprec, avg_prec_rec, f_beta, f1
 
 # Cargar modelo PubMedBERT para embeddings
 model = SentenceTransformer("NeuML/pubmedbert-base-embeddings")
@@ -44,7 +43,7 @@ index.add(embeddings_cfs)
 json_results = []
 
 # Abrir el archivo de resultados para escribir
-with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
+with open("results/faiss_pubmedbert.txt", "w", encoding="utf-8") as result_file:
     for i, (query_emb, query_text) in enumerate(zip(embeddings_queries, queries), 1):
         query_emb = query_emb.reshape(1, -1)
         D, I = index.search(query_emb, len(articulos))  # todos los artículos
@@ -76,13 +75,13 @@ with open("resultsCfs.txt", "w", encoding="utf-8") as result_file:
         })
 
 # Guardar archivo JSON
-with open("resultsCfs.json", "w", encoding="utf-8") as json_file:
+with open("results/faiss_pubmedbert.json", "w", encoding="utf-8") as json_file:
     json.dump(json_results, json_file, indent=2, ensure_ascii=False)
 
 print("Búsqueda completada. Resultados guardados en resultsCfs.txt y resultsCfs.json.")
 
 
-ref_docs, semantic_docs = load_data_semantic()
+ref_docs, semantic_docs = load_data_semantic("results/faiss_pubmedbert.json")
 
 map_vals, prec_vals = [], []
 p5, p10, rprec_total, f1_total, fbeta_total = 0, 0, 0, 0, 0

@@ -2,10 +2,10 @@ import json
 import numpy as np
 
 # Cargar los datos
-def load_data_semantic():
+def load_data_semantic(path: str):
     with open("corpora/cf/json/qrels.json", "r", encoding="utf-8") as f:
         ref_docs = json.load(f)
-    with open("resultsCfs.json", "r", encoding="utf-8") as f:
+    with open(path, "r", encoding="utf-8") as f:
         semantic_docs = json.load(f)
 
     # El archivo de referencia (qrels) ya debería estar en formato:

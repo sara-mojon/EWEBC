@@ -1,6 +1,8 @@
 import numpy as np
 import faiss 
+import sys
 import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from transformers import BertTokenizer, BertModel
 import torch
 
@@ -10,7 +12,7 @@ def get_query_embedding(text):
         outputs = model(**inputs)
     return outputs.last_hidden_state[:, 0, :].squeeze().numpy()
 
-embeddings = np.load('embeddingsQueries.npy')
+embeddings = np.load('embeddings/embeddingsQueries.npy')
 print(f"Se cargaron {embeddings.shape[0]} embeddings con dimensión {embeddings.shape[1]}.")
 embedding_dimension = embeddings.shape[1]
 num_embeddings = embeddings.shape[0]
@@ -38,6 +40,6 @@ print(f"\nResultados de la búsqueda para la query: '{new_query}'")
 for i, index_encontrado in enumerate(indices[0]):
     print(f"Vecino {i+1}: Índice {index_encontrado}, Distancia: {distances[0][i]}")
 
-index_file = 'faiss_index.bin'
+index_file = 'index/faiss_index.bin'
 faiss.write_index(index, index_file)
 print(f"\nÍndice Faiss guardado en: {index_file}")
