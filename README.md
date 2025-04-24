@@ -42,6 +42,10 @@ pip install -r requirements.txt
    - Place queries in `txt/queries.txt`.
 
 2. **Run the Script**:
+    - For `BERTbaseuncase`:
+      ```bash
+        python faiss/faiss_with_BERTbaseuncase.py
+        ```
    - For `bioclinicalBERT`:
      ```bash
      python faiss/faiss_with_bioclinicalBERT.py
