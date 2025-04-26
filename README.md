@@ -19,7 +19,9 @@ This project implements a semantic search system using FAISS, ChromaDB, and pre-
   - `scikit-learn`
   - `sentence-transformers`
   - `tqdm`
-
+  - `google.generativeai`
+  - `chromadb`
+    
 Install dependencies using:
 
 ```bash
