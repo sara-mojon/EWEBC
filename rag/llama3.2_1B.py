@@ -5,25 +5,27 @@ import json
 from sentence_transformers import SentenceTransformer
 import chromadb
 from chromadb.config import Settings
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import pipeline
 import torch
 
 torch.cuda.empty_cache()
+
 # --------------------------------------------
 # Configuración del modelo de embeddings
 # --------------------------------------------
-print("Cargando modelo de embeddings...")
+print("🔧 Cargando modelo de embeddings...")
 model_embeddings = SentenceTransformer("NeuML/pubmedbert-base-embeddings")
 
 # --------------------------------------------
-# Cargar modelo de lenguaje Qwen/Qwen3-1.7B
+# Cargar modelo de lenguaje LLaMA 3.2–1B Instruct
 # --------------------------------------------
-print("Cargando modelo de lenguaje Qwen/Qwen3-1.7B...")
-model_name = "Qwen/Qwen3-1.7B"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    torch_dtype="auto",
+print("🤖 Cargando modelo LLaMA 3.2–1B Instruct...")
+model_id = "meta-llama/Llama-3.2-1B-Instruct"
+
+pipe = pipeline(
+    "text-generation",
+    model=model_id,
+    torch_dtype=torch.bfloat16,
     device_map="auto"
 )
 
@@ -48,13 +50,13 @@ queries = cargar_queries("txt/queries.txt")
 # --------------------------------------------
 # Generar embeddings
 # --------------------------------------------
-print("Generando embeddings...")
+print("🧠 Generando embeddings...")
 embeddings_cfs = model_embeddings.encode(
     articulos,
     show_progress_bar=True,
     convert_to_numpy=True,
     normalize_embeddings=False,
-    batch_size=4  # puedes probar con 2 o incluso 1 si sigue fallando
+    batch_size=4
 )
 
 embeddings_queries = model_embeddings.encode(
@@ -65,14 +67,13 @@ embeddings_queries = model_embeddings.encode(
     batch_size=4
 )
 
-
 del model_embeddings
 torch.cuda.empty_cache()
 
 # --------------------------------------------
 # Inicializar ChromaDB
 # --------------------------------------------
-print("Inicializando base de datos vectorial (Chroma)...")
+print("📚 Inicializando ChromaDB...")
 chroma_client = chromadb.Client(Settings(
     anonymized_telemetry=False,
     persist_directory="chroma_storage"
@@ -87,71 +88,71 @@ collection.add(
 )
 
 # --------------------------------------------
-# Realizar búsquedas con RAG y guardar resultados
+# RAG: Buscar y generar respuestas
 # --------------------------------------------
-print("Realizando búsquedas con RAG y generando respuestas...")
+print("🔍 Ejecutando RAG con LLaMA 3.2–1B Instruct...")
 rag_results = {}
 
-with open("results/rag_qwen_responses.txt", "w", encoding="utf-8") as rag_file:
+with open("results/rag_llama32_instruct_responses.txt", "w", encoding="utf-8") as rag_file:
     for i, (query_emb, query_text) in enumerate(zip(embeddings_queries, queries), 1):
-        print(f"\n🔍 Procesando Query {i}: {query_text}")
+        print(f"\n🔍 Query {i}: {query_text}")
         rag_file.write(f"\n🔍 Query {i}:\n{query_text}\n")
 
-        results = collection.query(
-            query_embeddings=[query_emb.tolist()],
-            n_results=5,
-            include=["documents"]
-        )
+        try:
+            results = collection.query(
+                query_embeddings=[query_emb.tolist()],
+                n_results=5,
+                include=["documents"]
+            )
+        except Exception as e:
+            error_message = f"❌ Error al consultar ChromaDB: {e}"
+            print(error_message)
+            rag_file.write(f"\n{error_message}\n" + "-" * 80 + "\n")
+            rag_results[f"query_{i}"] = {"chroma_error": error_message}
+            continue
 
         relevant_documents = results["documents"][0]
-        print(f"RELEVANT_DOCUMENTS: {relevant_documents}")
         context = "\n".join(relevant_documents)
 
-        prompt = f"Based on the following information:\n\n{context}\n\nAnswer the following question: {query_text}"
-        messages = [{"role": "user", "content": prompt}]
-        text = tokenizer.apply_chat_template(
-            messages,
-            tokenize=False,
-            add_generation_prompt=True,
-            enable_thinking=False  # Thinking desactivado
-        )
-
-        model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+        # Mensaje al modelo
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant for biomedical literature."},
+            {"role": "user", "content": f"Based on the following information:\n\n{context}\n\nAnswer the following question:\n{query_text}"}
+        ]
 
         try:
-            generated_ids = model.generate(
-                **model_inputs,
+            outputs = pipe(
+                messages,
                 max_new_tokens=2048,
                 temperature=0.7,
                 top_p=0.8,
                 top_k=20
             )
-            output_ids = generated_ids[0][len(model_inputs.input_ids[0]):].tolist()
-            output_text = tokenizer.decode(output_ids, skip_special_tokens=True).strip()
+            output_text = outputs[0]["generated_text"][-1] if isinstance(outputs[0]["generated_text"], list) else outputs[0]["generated_text"]
+            content = output_text.get("content")
+            print(content)
 
-            thinking_content = ""  # No se genera
-            content = output_text
-
-            rag_file.write(f"\nRespuesta de Qwen3-1.7B:\n{content}\n")
+            rag_file.write(f"\n🤖 Respuesta de LLaMA 3.2–1B Instruct:\n{content}\n")
             rag_results[f"query_{i}"] = {
                 "query": query_text,
                 "context": context,
                 "response": content,
-                "thinking": thinking_content,
-                "model": model_name
+                "thinking": "",
+                "model": model_id
             }
 
         except Exception as e:
-            error_message = f"Error al generar respuesta con Qwen3-4B: {e}"
+            error_message = f"❌ Error al generar respuesta con LLaMA Instruct: {e}"
             print(error_message)
             rag_file.write(f"\n{error_message}\n")
-            rag_results[f"query_{i}"] = {"qwen3-4B_error": error_message}
+            rag_results[f"query_{i}"] = {"llama_error": error_message}
 
         rag_file.write("-" * 80 + "\n")
 
-# Guardar resultados RAG en JSON
-with open("results/rag_qwen_responses.json", "w", encoding="utf-8") as json_file:
+# --------------------------------------------
+# Guardar resultados
+# --------------------------------------------
+with open("results/rag_llama32_instruct_responses.json", "w", encoding="utf-8") as json_file:
     json.dump(rag_results, json_file, indent=2, ensure_ascii=False)
 
-print("Resultados RAG guardados en rag_qwen_responses.txt y rag_qwen_responses.json.")
-print("Script completado.")
+print("✅ Respuestas guardadas en results/rag_llama32_instruct_responses.txt y .json")

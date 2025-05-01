@@ -4,7 +4,7 @@ from sentence_transformers import SentenceTransformer, util
 from rouge_score import rouge_scorer
 
 # Cargar el JSON generado por OpenAI
-with open("results/rag_qwen_responses.json", "r", encoding="utf-8") as f:
+with open("results/rag_llama32_instruct_responses.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Cargar modelo de embeddings
@@ -39,7 +39,7 @@ for query_id, contenido in data.items():
 
 # Guardar resultados en archivo JSON
 os.makedirs("results", exist_ok=True)
-with open("results/rag_qwen_metrics.json", "w", encoding="utf-8") as f:
+with open("results/rag_llama32_instruct_metrics.json", "w", encoding="utf-8") as f:
     json.dump(metricas, f, indent=2)
 
 print("✅ Métricas guardadas en results/rag_qwen_metrics.json")
