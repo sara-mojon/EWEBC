@@ -27,7 +27,7 @@ generation_config = genai.types.GenerationConfig(
 
 
 gemini_flash = genai.GenerativeModel(model_name="gemini-2.0-flash", generation_config=generation_config, )
-gemini_pro = genai.GenerativeModel(model_name="gemini-2.5-pro", generation_config=generation_config,)
+gemini_pro = genai.GenerativeModel(model_name="gemini-1.5-pro", generation_config=generation_config,)
 
 # --------------------------------------------
 # Cargar archivos de entrada
@@ -88,6 +88,7 @@ with open("results/rag_gemini_responses.txt", "w", encoding="utf-8") as rag_file
         )
 
         relevant_documents = results["documents"][0]
+        print(f"RELEVANT_DOCUMENTS: {relevant_documents}")
         context = "\n".join(relevant_documents)
 
         prompt = f"Basándote en la siguiente información:\n\n{context}\n\nResponde a la siguiente pregunta: {query_text}"
