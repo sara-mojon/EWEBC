@@ -65,6 +65,21 @@ pip install -r requirements.txt
    - Check `resultsCfs.txt` for top 10 similar articles per query.
    - Check `resultsCfs.json` for detailed results.
 
+
+4. **Run RAG**:
+   - For `RAG`:
+     ```bash
+        python rag/gemini-2.0&2.5.py  
+     ```
+     It will generate the `rag_gemini_responses.json` file with the generated results for the RAG model.
+     ```
+     python rag/qwen3_1.7B.py
+     ```
+     It will generate the `rag_qwen_responses.json` file with the generated results for the Qwen model.
+     ```
+     
+
+
 ## Metrics
 
 ## Metrics
@@ -76,6 +91,17 @@ pip install -r requirements.txt
 # - **Precision at N (P@5, P@10)**: Precision for the top N results.
 # - **R-Precision**: Precision at the R-th position, where R is the number of relevant documents.
 
+## RAG METRICS
+
+# The following metrics are calculated to evaluate the search results:
+
+Run the following command to calculate the metrics:
+```bash
+python rag_metrics.py
+python best_rag.py
+```
+
+The fist command will calculate the metrics for the RAG model (generate rag_XXX_metrics.json) and the second one will check the metrics for the best RAG model.
 
 
 ## Acknowledgments
