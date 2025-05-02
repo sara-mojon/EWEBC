@@ -67,8 +67,6 @@ pip install -r requirements.txt
 
 ## Metrics
 
-## Metrics
-
 The following metrics are calculated to evaluate the search results:
 - **Precision** and **Recall**: Measure the relevance of retrieved results.
 - **F1-score** and **F2-score (F-beta)**: Harmonic mean of precision and recall.
