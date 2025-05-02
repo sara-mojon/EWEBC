@@ -69,12 +69,12 @@ pip install -r requirements.txt
 
 ## Metrics
 
-# The following metrics are calculated to evaluate the search results:
-# - **Precision** and **Recall**: Measure the relevance of retrieved results.
-# - **F1-score** and **F2-score (F-beta)**: Harmonic mean of precision and recall.
-# - **Mean Average Precision (MAP)**: Average precision across all queries.
-# - **Precision at N (P@5, P@10)**: Precision for the top N results.
-# - **R-Precision**: Precision at the R-th position, where R is the number of relevant documents.
+The following metrics are calculated to evaluate the search results:
+- **Precision** and **Recall**: Measure the relevance of retrieved results.
+- **F1-score** and **F2-score (F-beta)**: Harmonic mean of precision and recall.
+- **Mean Average Precision (MAP)**: Average precision across all queries.
+- **Precision at N (P@5, P@10)**: Precision for the top N results.
+- **R-Precision**: Precision at the R-th position, where R is the number of relevant documents.
 
 
 
